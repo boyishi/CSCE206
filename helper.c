@@ -188,47 +188,50 @@ void playGameEasyMode (BattleShipGame b){
     int attackSuccess;
 
     printf ("Game has started!\n");
+    scanf("%*c");
     while (1){  
-        scanf("Enter a coordinate (A 10): %c %d", &colChar, &rowIdx);
+         printBothBoard(b.playerOneBoard, b.playerTwoBoard);
+        printf("Enter a coordinate (A 5): ");
+        scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
       
         attackSuccess = performAttack(b.playerTwoBoard, rowIdx, colIdx);
 
-        printf("%d\n", attackSuccess);
-
         if (attackSuccess == 0){
-            printf("Missed hit \n");
+            printf("Missed hit! \n\n");
         }
         else if (attackSuccess == 1){
             b.playerOneHits += 1;
+            printf("Attacked hit!\n\n");
             if (b.playerOneHits == b.hitsToWin){
                 printf("Player one has won the game! \n");
                 return;
             }
         }
         else {
-            printf("Invalid coordinates \n");
+            printf("Invalid coordinates \n\n");
         }
 
-        // Perform CPU move
+        do {
+            rowIdx = rand() % 20;
+            colIdx = rand() % 20; 
+        } while (b.playerOneBoard[rowIdx][colIdx] != '*' && b.playerOneBoard[rowIdx][colIdx] != 'S');
+        
+        printf("Opponent attacks coordinate: %c %d\n", colIdx + 65, rowIdx);
+        if (b.playerOneBoard[rowIdx][colIdx] == '*'){
+            b.playerOneBoard[rowIdx][colIdx] = ' ';
+            printf("Result: Miss!\n");
+        }
+        else if (b.playerOneBoard[rowIdx][colIdx] == 'S'){
+            printf("Result: Your ship has been hit!\n\n");
+            b.playerOneBoard[rowIdx][colIdx] = 'X';
+            b.playerTwoHits += 1;
+
+            if (b.playerTwoHits == b.hitsToWin){
+                printf("Player one has won the game! \n");
+                return;
+            }
+        }
     }
 }
 
-// CPU move
-// while (1) {
-//     rowIdx = rand() % 20;
-//     colIdx = rand() % 20;
-
-//     if (b.playerOneBoard[rowIdx][colIdx] == '*'){
-//         b.playerOneBoard[rowIdx][colIdx] == ' ';
-//     }
-//     else if (b.playerOneBoard[rowIdx][colIdx] == 'S'){
-//         b.playerOneBoard[rowIdx][colIdx] = 'X';
-//         b.playerTwoHits += 1;
-//         if (b.playerTwoHits == b.hitsToWin){
-//             b.gameFinished = 1;
-//             printf("Player two has won the game! \n");
-//             return;
-//         }
-//     }
-// } 
