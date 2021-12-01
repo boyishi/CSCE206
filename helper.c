@@ -63,10 +63,15 @@ void printPlayerBoard (char a[20][20]){
             printf("%c  ", a[r][c]);
         }
 
+        printf("\n");
         numberToPrint += 1;
     }
 
-    printf("\n");
+    printf("    ");
+    for (char ch = 'A'; ch <= 'T'; ch++) {
+        printf("%c  ", ch);
+    }
+    printf("\n");    
 }
 
 void printBothBoard (char a[20][20], char b[20][20]){
@@ -139,25 +144,19 @@ void manualPlaceShips (char playerBoard[20][20], int sizeOne){
     char colChar;
     char viewBoard;
 
+    scanf("%*c");
     while (sizeOne != 0){
-        printf("Enter column (A-T): ");
-        scanf("%c", colChar);
+        printf("\nEnter coordinate (ex. A 5) to place ship: ");
+        scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
-
-        printf("Enter row (1- 20): ");
-        scanf("%d", rowIdx);
 
         if (playerBoard[rowIdx][colIdx] == '*'){
             sizeOne -= 1;
             playerBoard[rowIdx][colIdx] = 'S';
         }
 
-        printf("View board? (Y/N): ");
-        scanf("%c", &viewBoard);
-
-        if (viewBoard == 'Y'){
-            printPlayerBoard (playerBoard);
-        }
+       
+        printPlayerBoard (playerBoard);
     }
 }
 
@@ -190,7 +189,7 @@ void playGameEasyMode (BattleShipGame b){
     printf ("Game has started!\n");
     scanf("%*c");
     while (1){  
-         printBothBoard(b.playerOneBoard, b.playerTwoBoard);
+        printBothBoard(b.playerOneBoard, b.playerTwoBoard);
         printf("Enter a coordinate (A 5): ");
         scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
