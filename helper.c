@@ -180,6 +180,70 @@ int performAttack(char opponentBoard[20][20], int rowIdx, int colIdx) {
     return -1;
 }
 
+int performPlayerMove (BattleShipGame b, int player) {
+    int colChar;
+    int colIdx;
+    int rowIdx;
+    int attackSuccess;
+
+    if (player == 0){
+        printBothBoard(b.playerOneBoard, b.playerTwoBoard);
+        printf("\nPlayer one, please enter a coordinate (A 5): ");
+    }
+    else {
+        printBothBoard(b.playerTwoBoard, b.playerOneBoard);
+        printf("\nPlayer two, please enter a coordinate (A 5): ");
+    }
+    
+    scanf("%c %d%*c", &colChar, &rowIdx);
+    colIdx = (int) colChar - 65;
+
+    if (player == 0){
+        attackSuccess = performAttack(b.playerTwoBoard, rowIdx, colIdx);
+    }
+    else {
+        attackSuccess = performAttack(b.playerOneBoard, rowIdx, colIdx);
+    }
+    
+    if (attackSuccess == 0){
+        printf("Missed hit! \n\n");
+    }
+    else if (attackSuccess == 1){
+        printf("Attacked hit!\n\n");
+        if (player == 0){
+            b.playerOneHits += 1;
+            printf("Player one has won the game! \n");
+            return 1;
+        }
+        else {
+            b.playerTwoHits += 1;
+            printf("Player two has won the game! \n");
+            return 1;
+        }
+    }
+    else {
+        printf("Invalid coordinates \n\n");
+        return -1;
+    }
+
+    return 0;
+}
+
+void PvP (BattleShipGame b) {
+    int player = 0;
+    int res;
+    while (1) {
+        res = performPlayerMove(b, player);
+        if (res == 0) {
+            player = (player + 1) % 2;
+        }
+        else if (res == 1){
+            break;
+        }
+    }
+}
+
+
 void playGameEasyMode (BattleShipGame b){
     char colChar;
     int rowIdx;

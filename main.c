@@ -36,6 +36,15 @@ int main(void) {
         printBothBoard(game.playerOneBoard, game.playerTwoBoard);
         playGameEasyMode(game);
     }
+    else {
+        if (shipPlacement == 1){
+            autoPlaceShips(game.playerOneBoard);
+            autoPlaceShips(game.playerTwoBoard);
+
+            scanf("%*c");
+            PvP(game);
+        }
+    }
 
 }
 

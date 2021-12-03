@@ -58,4 +58,8 @@ int performAttack(char board[20][20]);
 
 void playGameEasyMode (BattleShipGame b);
 
+int performAttack(char opponentBoard[20][20], int rowIdx, int colIdx);
+
+void PvP (BattleShipGame b);
+
 #endif
