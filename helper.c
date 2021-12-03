@@ -197,6 +197,7 @@ int performPlayerMove (BattleShipGame b, int player) {
     
     scanf("%c %d%*c", &colChar, &rowIdx);
     colIdx = (int) colChar - 65;
+    rowIdx -= 1;
 
     if (player == 0){
         attackSuccess = performAttack(b.playerTwoBoard, rowIdx, colIdx);
@@ -257,6 +258,7 @@ void playGameEasyMode (BattleShipGame b){
         printf("Enter a coordinate (A 5): ");
         scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
+        rowIdx -= 1;
       
         attackSuccess = performAttack(b.playerTwoBoard, rowIdx, colIdx);
 
