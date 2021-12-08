@@ -9,6 +9,13 @@ typedef struct BattleShipGame_struct {
     int playerTwoHits;
     int hitsToWin;
     int gameFinished;
+
+
+    //For custom AI
+    int playerTwoRow;
+    int playerTwoColumn;
+    int playerTwoRestart;
+    
 } BattleShipGame;
 
 // void saveGame (BattleShipGame b) {
@@ -54,9 +61,11 @@ void autoPlaceShips(char board[20][20]);
 
 void manualPlaceShips(char playerBoard[20][20], int sizeOne);
 
-int performAttack(char board[20][20]);
+int performAttack(char board[20][20], int rowIdx, int colIdx);
 
 void playGameEasyMode (BattleShipGame b);
+
+void playGameCustomMode(BattleShipGame b);
 
 int performAttack(char opponentBoard[20][20], int rowIdx, int colIdx);
 

@@ -48,6 +48,12 @@ BattleShipGame createBattleshipGame() {
     b.playerTwoHits = 0;
     b.hitsToWin = 4;
 
+    //For custom AI
+
+    b.playerTwoRow = 0;
+    b.playerTwoColumn = 0;
+    b.playerTwoRestart = 1;
+
     return b;
 }
 
@@ -124,18 +130,325 @@ void printBothBoard (char a[20][20], char b[20][20]){
     printf("\n\n");
 }
 
-void autoPlaceShips(char board[20][20]) {  
+void autoPlaceShips(char board[20][20]) { 
+
+    //Aircraft carrier - 5 cells
+
     int r = rand() % 20;
     int c = rand() % 20;
 
-    for (int i = 0; i < 4; i++){
-        while (board[r][c] != '*') {
-            r = rand() % 20;
-            c = rand() % 20;
+    while(board[r][c] != '*') {
+
+        r = rand() % 20;
+        c = rand() % 20;
+
+    }
+
+    if(board[r][c] == '*') {
+        board[r][c] = 'S';
+
+        if(c >= 4 && c <= 16) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+            board[r][c+3] = 'S';
+            board[r][c+4] = 'S';
+
         }
 
-        board[r][c] = 'S';
+        else if(c < 4) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+            board[r][c+3] = 'S';
+            board[r][c+4] = 'S';
+
+        }
+
+        else if(c > 16) {
+
+            board[r][c-1] = 'S';
+            board[r][c-2] = 'S';
+            board[r][c-3] = 'S';
+            board[r][c-4] = 'S';
+
+        }
+
+        else if(r >= 4 && r <= 16) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+            board[r+3][c] = 'S';
+            board[r+4][c] = 'S';
+
+        }
+
+
+        else if(r > 16) {
+
+            board[r-1][c] = 'S';
+            board[r-2][c] = 'S';
+            board[r-3][c] = 'S';
+            board[r-4][c] = 'S';
+
+        }
+
+        else if(r < 4) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+            board[r+3][c] = 'S';
+            board[r+4][c] = 'S';
+
+        }
+
     }
+
+
+    //Battleship - 4 cells
+
+    r = rand() % 20;
+    c = rand() % 20;
+
+    while(board[r][c] != '*') {
+
+        r = rand() % 20;
+        c = rand() % 20;
+
+    }
+
+    if(board[r][c] == '*') {
+        board[r][c] = 'S';
+
+        if(c > 3 && c < 17) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+            board[r][c+3] = 'S';
+
+        }
+
+        else if(c <= 3) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+            board[r][c+3] = 'S';
+
+        }
+
+        else if(c >= 17) {
+
+            board[r][c-1] = 'S';
+            board[r][c-2] = 'S';
+            board[r][c-3] = 'S';
+
+        }
+
+        else if(r > 3 && r < 17) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+            board[r+3][c] = 'S';
+
+        }
+
+
+        else if(r >= 17) {
+
+            board[r-1][c] = 'S';
+            board[r-2][c] = 'S';
+            board[r-3][c] = 'S';
+
+        }
+
+        else if(r <= 3) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+            board[r+3][c] = 'S';
+
+        }
+
+    }
+
+
+    //Submarine - 3 cells
+
+    r = rand() % 20;
+    c = rand() % 20;
+
+    while(board[r][c] != '*') {
+
+        r = rand() % 20;
+        c = rand() % 20;
+
+    }
+
+    if(board[r][c] == '*') {
+        board[r][c] = 'S';
+
+        if(c > 2 && c < 18) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+
+        }
+
+        else if(c <= 2) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+
+        }
+
+        else if(c >= 18) {
+
+            board[r][c-1] = 'S';
+            board[r][c-2] = 'S';
+
+        }
+
+        else if(r > 2 && r < 18) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+
+        }
+
+
+        else if(r >= 18) {
+
+            board[r-1][c] = 'S';
+            board[r-2][c] = 'S';
+
+        }
+
+        else if(r <= 2) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+
+        }
+
+    }
+
+
+    //Destroyer - 3 cells
+
+    r = rand() % 20;
+    c = rand() % 20;
+
+    while(board[r][c] != '*') {
+
+        r = rand() % 20;
+        c = rand() % 20;
+
+    }
+
+    if(board[r][c] == '*') {
+        board[r][c] = 'S';
+
+        if(c > 2 && c < 18) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+
+        }
+
+        else if(c <= 2) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+
+        }
+
+        else if(c >= 18) {
+
+            board[r][c-1] = 'S';
+            board[r][c-2] = 'S';
+
+        }
+
+        else if(r > 2 && r < 18) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+
+        }
+
+
+        else if(r >= 18) {
+
+            board[r-1][c] = 'S';
+            board[r-2][c] = 'S';
+
+        }
+
+        else if(r <= 2) {
+
+            board[r+1][c] = 'S';
+            board[r+2][c] = 'S';
+
+        }
+
+    }
+
+    //Patrol boat - 2 cells
+
+    r = rand() % 20;
+    c = rand() % 20;
+
+    while(board[r][c] != '*') {
+
+        r = rand() % 20;
+        c = rand() % 20;
+
+    }
+
+    if(board[r][c] == '*') {
+        board[r][c] = 'S';
+
+        if(c > 1 && c < 19) {
+
+            board[r][c+1] = 'S';
+
+        }
+
+        else if(c <= 1) {
+
+            board[r][c+1] = 'S';
+            board[r][c+2] = 'S';
+
+        }
+
+        else if(c >= 19) {
+
+            board[r][c-1] = 'S';
+
+        }
+
+        else if(r > 1 && r < 19) {
+
+            board[r+1][c] = 'S';
+
+        }
+
+
+        else if(r >= 19) {
+
+            board[r-1][c] = 'S';
+
+        }
+
+        else if(r <= 1) {
+
+            board[r+1][c] = 'S';
+
+        }
+
+    }
+
+
 }
 
 void manualPlaceShips (char playerBoard[20][20], int sizeOne){
@@ -146,9 +459,10 @@ void manualPlaceShips (char playerBoard[20][20], int sizeOne){
 
     scanf("%*c");
     while (sizeOne != 0){
-        printf("\nEnter coordinate (ex. A 5) to place ship: ");
+        printf("\nEnter coordinate (A-T 1-20) to place ship: ");
         scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
+        rowIdx -= 1;
 
         if (playerBoard[rowIdx][colIdx] == '*'){
             sizeOne -= 1;
@@ -188,11 +502,11 @@ int performPlayerMove (BattleShipGame b, int player) {
 
     if (player == 0){
         printBothBoard(b.playerOneBoard, b.playerTwoBoard);
-        printf("\nPlayer one, please enter a coordinate (A 5): ");
+        printf("\nPlayer one, please enter a coordinate (A-T 1-20): ");
     }
     else {
         printBothBoard(b.playerTwoBoard, b.playerOneBoard);
-        printf("\nPlayer two, please enter a coordinate (A 5): ");
+        printf("\nPlayer two, please enter a coordinate (A-T 1-20): ");
     }
     
     scanf("%c %d%*c", &colChar, &rowIdx);
@@ -255,7 +569,7 @@ void playGameEasyMode (BattleShipGame b){
     scanf("%*c");
     while (1){  
         printBothBoard(b.playerOneBoard, b.playerTwoBoard);
-        printf("Enter a coordinate (A 5): ");
+        printf("Enter a coordinate (A-T 1-20): ");
         scanf("%c %d%*c", &colChar, &rowIdx);
         colIdx = (int) colChar - 65;
         rowIdx -= 1;
@@ -282,7 +596,7 @@ void playGameEasyMode (BattleShipGame b){
             colIdx = rand() % 20; 
         } while (b.playerOneBoard[rowIdx][colIdx] != '*' && b.playerOneBoard[rowIdx][colIdx] != 'S');
         
-        printf("Opponent attacks coordinate: %c %d\n", colIdx + 65, rowIdx);
+        printf("Opponent attacks coordinate: %c %d\n", colIdx + 65, rowIdx + 1);
         if (b.playerOneBoard[rowIdx][colIdx] == '*'){
             b.playerOneBoard[rowIdx][colIdx] = ' ';
             printf("Result: Miss!\n");
@@ -291,6 +605,86 @@ void playGameEasyMode (BattleShipGame b){
             printf("Result: Your ship has been hit!\n\n");
             b.playerOneBoard[rowIdx][colIdx] = 'X';
             b.playerTwoHits += 1;
+
+            if (b.playerTwoHits == b.hitsToWin){
+                printf("Player one has won the game! \n");
+                return;
+            }
+        }
+    }
+}
+
+
+void playGameCustomMode (BattleShipGame b){
+    char colChar;
+    int rowIdx;
+    int colIdx;
+    int attackSuccess;
+
+    printf ("Game has started!\n");
+    scanf("%*c");
+    while (1){  
+        printBothBoard(b.playerOneBoard, b.playerTwoBoard);
+        printf("Enter a coordinate (A-T 1-20): ");
+        scanf("%c %d%*c", &colChar, &rowIdx);
+        colIdx = (int) colChar - 65;
+        rowIdx -= 1;
+      
+        attackSuccess = performAttack(b.playerTwoBoard, rowIdx, colIdx);
+
+        if (attackSuccess == 0){
+            printf("Missed hit! \n\n");
+        }
+        else if (attackSuccess == 1){
+            b.playerOneHits += 1;
+            printf("Attacked hit!\n\n");
+            if (b.playerOneHits == b.hitsToWin){
+                printf("Player one has won the game! \n");
+                return;
+            }
+        }
+        else {
+            printf("Invalid coordinates \n\n");
+        }
+
+        int rowIdx2 = b.playerTwoRow;
+        int colIdx2 = b.playerTwoColumn;
+
+        if(b.playerTwoRestart == 1) {
+            do {
+                rowIdx2 = rand() % 20;
+                colIdx2 = rand() % 20; 
+            } while (b.playerOneBoard[rowIdx2][colIdx2] != '*' && b.playerOneBoard[rowIdx2][colIdx2] != 'S');
+        }
+        
+        printf("Opponent attacks coordinate: %c %d\n", colIdx2 + 65, rowIdx2 + 1);
+        if (b.playerOneBoard[rowIdx2][colIdx2] == '*'){
+            b.playerOneBoard[rowIdx2][colIdx2] = ' ';
+            printf("Result: Miss!\n");
+            
+            b.playerTwoRow = rowIdx2 + 1;
+            b.playerTwoColumn = colIdx2 + 1;
+
+            if(b.playerTwoRow == 20 || b.playerTwoColumn == 20 || b.playerOneBoard[rowIdx2+1][colIdx2+1] == ' ' || b.playerOneBoard[rowIdx2+1][colIdx2+1] == 'X') {
+
+                b.playerTwoRestart = 1;
+            }
+
+            else {
+
+                b.playerTwoRestart = 0;
+
+            }
+            
+
+        }
+
+        else if (b.playerOneBoard[rowIdx2][colIdx2] == 'S'){
+            printf("Result: Your ship has been hit!\n\n");
+            b.playerOneBoard[rowIdx2][colIdx2] = 'X';
+            b.playerTwoHits += 1;
+
+            b.playerTwoRestart = 1;
 
             if (b.playerTwoHits == b.hitsToWin){
                 printf("Player one has won the game! \n");
